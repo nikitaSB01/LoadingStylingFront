@@ -1,8 +1,8 @@
-// webpack.prod.js
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 
 module.exports = merge(common, {
   mode: "production",
@@ -17,4 +17,12 @@ module.exports = merge(common, {
       new CssMinimizerPlugin(), // Минификация CSS
     ],
   },
+  plugins: [
+    ...common.plugins, // Сохранение общих плагинов
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+      cleanupOutdatedCaches: true,
+    }),
+  ],
 });

@@ -1,3 +1,3 @@
 import "./css/style.css";
 
-import "./js/frontend.js";
+import "./js/index.js";
