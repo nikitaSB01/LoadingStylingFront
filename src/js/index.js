@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Показать сообщение об ошибке
         errorContainer.style.display = "block"; // Показать ошибку
-      }, 2000); // 2 секунды задержки
+      }, 2000); // 2 секунды задержки перед отображением ошибки
     } finally {
       isLoading = false; // Сбрасываем флаг загрузки
     }
