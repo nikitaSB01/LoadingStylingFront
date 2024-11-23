@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
     errorContainer.style.display = "none"; // Скрываем ошибку
 
     try {
-      const response = await fetch("http://localhost:3000/news");
+      const response = await fetch(
+        "https://loadingstylingserver.onrender.com/news"
+      );
 
       if (!response.ok) {
         throw new Error("Ошибка при получении данных");
