@@ -46,16 +46,45 @@ button:hover {
     font-size: 18px;
 }
 
-/* Состояние загрузки */
-.loading {
+/* Состояние загрузки - имитация контента */
+.loading-item {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
-.loading::before {
-    content: "Загрузка...";
-    font-size: 18px;
-    color: gray;
+.loading-item-elem {
+    width: 100px; /* Маленький прямоугольник */
+    height: 15px;
+    background-color: #ccc; /* Серый цвет для имитации загрузки */
+    animation: loading 1.5s infinite ease-in-out;
+}
+
+.loading-item-el {
+    width: 100%; /* Большой прямоугольник */
+    height: 20px;
+    background-color: #ccc;
+    animation: loading 1.5s infinite ease-in-out;
+}
+
+@keyframes loading {
+    0% {
+        background-color: #ccc;
+    }
+    50% {
+        background-color: #e0e0e0;
+    }
+    100% {
+        background-color: #ccc;
+    }
+}
+
+/* Сообщение об ошибке */
+#errorContainer {
+    color: red;
+    font-size: 16px;
+    text-align: center;
+    display: none;
 }
