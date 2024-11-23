@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const newsContainer = document.getElementById("newsContainer");
   const errorContainer = document.getElementById("errorContainer");
 
-  // Функция для загрузки новостей
-  let isLoading = false; // Добавь флаг загрузки
+  let isLoading = false; // Флаг загрузки
 
   async function loadNews() {
     if (isLoading) return; // Если данные уже загружаются, не повторяем запрос
@@ -12,12 +11,29 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Запрос к /news отправлен");
 
     isLoading = true; // Устанавливаем флаг загрузки
-    newsContainer.innerHTML = "<div class='loading'></div>"; // Показываем индикатор загрузки
+
+    // Очистка содержимого контейнера новостей перед показом загрузки
+    newsContainer.innerHTML = "";
+
+    // Показываем имитацию контента в виде серых блоков
+    newsContainer.innerHTML = `
+      <div class="loading-item">
+        <div class="loading-item-elem"></div>
+        <div class="loading-item-el"></div>
+      </div>
+      <div class="loading-item">
+        <div class="loading-item-elem"></div>
+        <div class="loading-item-el"></div>
+      </div>
+      <div class="loading-item">
+        <div class="loading-item-elem"></div>
+        <div class="loading-item-el"></div>
+      </div>
+    `;
     errorContainer.style.display = "none"; // Скрываем ошибку
 
     try {
       const response = await fetch("http://localhost:3000/news");
-      console.log("Ответ от /news", response); // Логируем ответ
 
       if (!response.ok) {
         throw new Error("Ошибка при получении данных");
@@ -25,6 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const news = await response.json();
       console.log("Новости получены", news);
+
+      // Очистка индикатора загрузки после получения данных
+      newsContainer.innerHTML = "";
 
       if (news.length > 0) {
         newsContainer.innerHTML = news
@@ -40,9 +59,16 @@ document.addEventListener("DOMContentLoaded", function () {
         newsContainer.innerHTML = "<p>Нет новостей.</p>";
       }
     } catch (error) {
-      console.log("Ошибка при загрузке новостей:", error); // Логируем ошибку
-      newsContainer.innerHTML = ""; // Очищаем контейнер новостей
-      errorContainer.style.display = "block"; // Показываем ошибку
+      console.log("Ошибка при загрузке новостей:", error);
+
+      // Задержка на 2 секунды перед появлением ошибки (имитация загрузки)
+      setTimeout(() => {
+        // Очистка индикатора загрузки перед показом ошибки
+        newsContainer.innerHTML = ""; // Скрыть индикатор загрузки
+
+        // Показать сообщение об ошибке
+        errorContainer.style.display = "block"; // Показать ошибку
+      }, 2000); // 2 секунды задержки
     } finally {
       isLoading = false; // Сбрасываем флаг загрузки
     }

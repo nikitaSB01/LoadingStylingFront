@@ -13,7 +13,7 @@ if (workbox) {
 
   // Кэширование данных с API (например, новостей)
   workbox.routing.registerRoute(
-    ({ url }) => url.pathname === "/news",
+    ({ url }) => url.pathname === "/news", // Обработка запросов к /news
     new workbox.strategies.NetworkFirst({
       cacheName: "news-cache",
       plugins: [
